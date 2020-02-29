@@ -1,4 +1,4 @@
-# COGS 189 Final Project: Face Detection
+# COGS 189 Final Project: EEG Face Detection
 Final Project for COGS 189, Winter 2020. 
 <br>Trains a classifier to detect whether a person is looking at a face or not. 
 
