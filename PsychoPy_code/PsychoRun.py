@@ -11,7 +11,7 @@ from psychopy import locale_setup, sound, gui, visual, core, data, event, loggin
 from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED,
                                 STOPPED, FINISHED, PRESSED, RELEASED, FOREVER)
 
-import random as rd # shuffle etc
+import random as rd # shuffle, randrange
 
 # import numpy as np # numpy imports for eeg
 import os  # handy system and path functions
@@ -39,7 +39,8 @@ os.chdir(_thisDir)
 #############################
 
 NUM_IMAGES_TO_SHOW = 10 # Total number of images to show
-NUM_SECONDS_TO_SHOW_IMAGE = 2 # seconds
+NUM_SECONDS_TO_SHOW_IMAGE = 1 # seconds
+NUM_SECONDS_TO_SHOW_CROSS = 0.5
 
 FACE = 0
 LANDSCAPE = 1
@@ -58,7 +59,7 @@ rd.shuffle(landscape_filenames)
 NUM_LANDSCAPE_IMAGES = len(landscape_filenames)
 
 # Instructions string
-instructions_text = "Calibration\nYou will be shown a series of images. \nPlease keep as still as possible to reduce noise in the data. \n\nReady?"
+instructions_text = "You will be shown a series of images. \nPlease fixate at the center cross and keep as still as possible to reduce noise in the data. \n\nReady?"
 
 
 class DiscriminationExperiment: 
@@ -110,8 +111,8 @@ class DiscriminationExperiment:
         self.__image_stim = visual.ImageStim(
             win=self.__win, name='image',
             image=filename, mask=None,
-            ori=0, units='norm', pos=(0, 0), size=(1, 1.5),
-            color=[1,1,1], colorSpace='rgb', opacity=1,
+            ori=0, units='norm', pos=(0, 0), size=(0.60, 0.9),
+            color=[1,1,1], colorSpace='rgb', opacity=0.5,
             flipHoriz=False, flipVert=False,
             texRes=128, interpolate=True, depth=0.0)
         self.__image_filename = filename
@@ -282,6 +283,9 @@ class DiscriminationExperiment:
             self.__routineTimer.reset()
             self.__kb.clock.reset() 
             time_shown = 0
+            self.__marker_outlet.push_sample([CROSS_START_MARKER])
+            self.__showTimedText("+", rd.randrange((NUM_SECONDS_TO_SHOW_CROSS)*10, (NUM_SECONDS_TO_SHOW_CROSS+0.2)*10) / 10)
+            self.__marker_outlet.push_sample([CROSS_END_MARKER])
 
             self.__marker_outlet.push_sample([NEW_IMAGE_START_MARKER])
             self.__marker_outlet.push_sample([FACE_IMAGE_MARKER] if self.__current_type == FACE else [LANDSCAPE_IMAGE_MARKER])
@@ -292,7 +296,7 @@ class DiscriminationExperiment:
             print(self.__image_filename)
 
             self.__setDrawOn([self.__image_stim])
-            self.__showTimedText("", NUM_SECONDS_TO_SHOW_IMAGE)
+            self.__showTimedText("", rd.randrange((NUM_SECONDS_TO_SHOW_IMAGE)*10, (NUM_SECONDS_TO_SHOW_IMAGE+0.2)*10) / 10)
             self.__endRoutine([self.__image_stim])
 
             self.__marker_outlet.push_sample([NEW_IMAGE_END_MARKER])
