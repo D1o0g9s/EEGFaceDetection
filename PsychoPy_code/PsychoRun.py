@@ -38,7 +38,7 @@ os.chdir(_thisDir)
 ### Initialize variables ###
 #############################
 
-NUM_IMAGES_TO_SHOW = 10 # Total number of images to show
+NUM_IMAGES_TO_SHOW = 20 # Total number of images to show
 NUM_SECONDS_TO_SHOW_IMAGE = 1 # seconds
 NUM_SECONDS_TO_SHOW_CROSS = 0.5
 
