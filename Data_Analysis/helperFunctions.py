@@ -67,6 +67,9 @@ def epochByTime(start_timestamp, end_timestamp, data):
         new_data[stream_type] = {}
         new_data[stream_type][StreamType.TIME.value] = time_series[indexes]
         new_data[stream_type][StreamType.DATA.value] = data_series[indexes]
+        if StreamType.FS.value in data[stream_type].keys():
+            fs = data[stream_type][StreamType.FS.value]
+            new_data[stream_type][StreamType.FS.value] = fs
     
     return new_data
 
