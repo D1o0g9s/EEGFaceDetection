@@ -20,3 +20,5 @@ import pickle
 # FOOOF
 from fooof import FOOOF, FOOOFGroup
 
+# PyEEG for power binning
+import pyeeg

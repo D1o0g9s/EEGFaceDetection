@@ -38,9 +38,9 @@ os.chdir(_thisDir)
 ### Initialize variables ###
 #############################
 
-NUM_IMAGES_TO_SHOW = 20 # Total number of images to show
+NUM_IMAGES_TO_SHOW = 40 # Total number of images to show
 NUM_SECONDS_TO_SHOW_IMAGE = 1 # seconds
-NUM_SECONDS_TO_SHOW_CROSS = 0.5
+NUM_SECONDS_TO_SHOW_CROSS = 0.5 # seconds to show cross in between
 
 FACE = 0
 LANDSCAPE = 1
@@ -60,7 +60,8 @@ NUM_LANDSCAPE_IMAGES = len(landscape_filenames)
 
 # Instructions string
 instructions_text = "You will be shown a series of images. \nPlease fixate at the center cross and keep as still as possible to reduce noise in the data. \n\nReady?"
-
+blink_text = "Blink twice"
+close_eye_text = "Close your eyes for 5 seconds"
 
 class DiscriminationExperiment: 
     
@@ -275,6 +276,14 @@ class DiscriminationExperiment:
         self.__marker_outlet.push_sample([RECORDING_START_MARKER])
         self.__showTextWithSpaceExit(instructions_text)
         self.__marker_outlet.push_sample([CALIBRATION_START_MARKER])
+        self.__marker_outlet.push_sample([BLINK_START_MARKER])
+        self.__showTextWithSpaceExit(blink_text)
+        self.__marker_outlet.push_sample([BLINK_END_MARKER])
+        self.__marker_outlet.push_sample([CLOSE_EYE_START_MARKER])
+        self.__showTextWithSpaceExit(close_eye_text)
+        self.__marker_outlet.push_sample([CLOSE_EYE_END_MARKER])
+
+        self.__marker_outlet.push_sample([CALIBRATION_END_MARKER])
 
         
         for i in range(NUM_IMAGES_TO_SHOW) : 
@@ -303,7 +312,7 @@ class DiscriminationExperiment:
 
 
         # Flag the end of the Psychopy experiment
-        self.__marker_outlet.push_sample([CALIBRATION_END_MARKER])
+        
         self.__marker_outlet.push_sample([RECORDING_END_MARKER])
 
         logging.flush()
