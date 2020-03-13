@@ -113,7 +113,7 @@ class DiscriminationExperiment:
             win=self.__win, name='image',
             image=filename, mask=None,
             ori=0, units='norm', pos=(0, 0), size=(0.60, 0.9),
-            color=[1,1,1], colorSpace='rgb', opacity=0.5,
+            color=[1,1,1], colorSpace='rgb', opacity=0.8,
             flipHoriz=False, flipVert=False,
             texRes=128, interpolate=True, depth=0.0)
         self.__image_filename = filename
