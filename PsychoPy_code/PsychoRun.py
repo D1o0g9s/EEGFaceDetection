@@ -38,7 +38,7 @@ os.chdir(_thisDir)
 ### Initialize variables ###
 #############################
 
-NUM_IMAGES_TO_SHOW = 40 # Total number of images to show
+NUM_IMAGES_TO_SHOW = 80 # Total number of images to show
 NUM_SECONDS_TO_SHOW_IMAGE = 1 # seconds
 NUM_SECONDS_TO_SHOW_CROSS = 0.5 # seconds to show cross in between
 
@@ -286,7 +286,11 @@ class DiscriminationExperiment:
         self.__marker_outlet.push_sample([CALIBRATION_END_MARKER])
 
         
-        for i in range(NUM_IMAGES_TO_SHOW) : 
+        for i in range(NUM_IMAGES_TO_SHOW) :
+            if i % 40 == 0: 
+                print("shuffling!")
+                rd.shuffle(faces_filenames)
+                rd.shuffle(landscape_filenames)
 
             # Reset the timers
             self.__routineTimer.reset()
