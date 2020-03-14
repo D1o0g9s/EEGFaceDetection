@@ -38,7 +38,7 @@ os.chdir(_thisDir)
 ### Initialize variables ###
 #############################
 
-NUM_IMAGES_TO_SHOW = 80 # Total number of images to show
+NUM_IMAGES_TO_SHOW = 140*2 # Total number of images to show
 NUM_SECONDS_TO_SHOW_IMAGE = 1 # seconds
 NUM_SECONDS_TO_SHOW_CROSS = 0.5 # seconds to show cross in between
 
@@ -47,14 +47,14 @@ LANDSCAPE = 1
 # Get all the files in the folders
 images_faces_path = "./images/faces"
 all_faces_filenames = os.listdir(images_faces_path)
-faces_filenames = [os.path.join(images_faces_path, all_faces_filenames[i]) for i in range(len(all_faces_filenames))]
+faces_filenames = [os.path.join(images_faces_path, all_faces_filenames[i]) for i in range(len(all_faces_filenames)) if not all_faces_filenames[i].startswith(".")]
 rd.shuffle(faces_filenames)
 NUM_FACE_IMAGES = len(faces_filenames)
 
 
 images_landscape_path = "./images/landscape"
 all_landscape_filenames = os.listdir(images_landscape_path)
-landscape_filenames = [os.path.join(images_landscape_path, all_landscape_filenames[i]) for i in range(len(all_landscape_filenames))]
+landscape_filenames = [os.path.join(images_landscape_path, all_landscape_filenames[i]) for i in range(len(all_landscape_filenames)) if not all_landscape_filenames[i].startswith(".")]
 rd.shuffle(landscape_filenames)
 NUM_LANDSCAPE_IMAGES = len(landscape_filenames)
 
@@ -287,7 +287,7 @@ class DiscriminationExperiment:
 
         
         for i in range(NUM_IMAGES_TO_SHOW) :
-            if i % 40 == 0: 
+            if i % 140 == 0: 
                 print("shuffling!")
                 rd.shuffle(faces_filenames)
                 rd.shuffle(landscape_filenames)
